@@ -19,7 +19,12 @@ export function BottomNav({
   return (
     <nav className="bottom-nav" aria-label="Навігація">
       <div className="bottom-nav__inner">
-        <div className="bottom-nav__tabs" role="tablist" aria-label="Режим">
+        <div
+          className="bottom-nav__tabs"
+          role="tablist"
+          aria-label="Режим"
+          data-tour="nav-tabs"
+        >
           <button
             type="button"
             role="tab"
@@ -43,6 +48,7 @@ export function BottomNav({
         <button
           type="button"
           className="bottom-nav__export"
+          data-tour="export"
           onClick={onExport}
           disabled={exporting || !canExport}
         >

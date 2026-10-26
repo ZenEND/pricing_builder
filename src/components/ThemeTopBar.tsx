@@ -1,3 +1,4 @@
+import { HelpButton } from './GuideTour'
 import type { DesignTheme, ThemeMeta } from '../types'
 import { THEMES } from '../types'
 import './ThemeTopBar.css'
@@ -5,14 +6,23 @@ import './ThemeTopBar.css'
 type Props = {
   theme: DesignTheme
   onThemeChange: (theme: DesignTheme) => void
+  onHelp: () => void
 }
 
-export function ThemeTopBar({ theme, onThemeChange }: Props) {
+export function ThemeTopBar({ theme, onThemeChange, onHelp }: Props) {
   return (
     <div className="theme-top">
       <div className="theme-top__inner">
-        <p className="theme-top__label">Дизайн</p>
-        <div className="theme-top__scroll" role="listbox" aria-label="Дизайн">
+        <div className="theme-top__row">
+          <p className="theme-top__label">Дизайн</p>
+          <HelpButton onClick={onHelp} />
+        </div>
+        <div
+          className="theme-top__scroll"
+          role="listbox"
+          aria-label="Дизайн"
+          data-tour="themes"
+        >
           {THEMES.map((meta: ThemeMeta) => (
             <button
               key={meta.id}

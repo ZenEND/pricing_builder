@@ -1,0 +1,289 @@
+.tour {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.tour__dim,
+.tour__catch {
+  appearance: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  cursor: default;
+  animation: tour-fade 0.25s ease;
+}
+
+.tour__dim {
+  background: rgba(12, 6, 2, 0.72);
+}
+
+.tour__catch {
+  background: transparent;
+  z-index: 0;
+}
+
+.tour__spotlight {
+  position: absolute;
+  z-index: 1;
+  border-radius: 14px;
+  background: transparent;
+  box-shadow:
+    0 0 0 2px rgba(255, 214, 160, 0.95),
+    0 0 0 9999px rgba(12, 6, 2, 0.72),
+    0 0 28px 4px rgba(255, 180, 80, 0.35);
+  pointer-events: none;
+  /* No size animation — wrong interpolated boxes looked like “wrong targets” */
+  transition: none;
+  animation: tour-pulse 1.8s ease-in-out infinite;
+}
+
+.tour__tip {
+  position: absolute;
+  z-index: 2;
+  pointer-events: auto;
+  box-sizing: border-box;
+  padding: 0.8rem 0.9rem 0.9rem;
+  border-radius: 16px;
+  background: linear-gradient(165deg, #fff8f0 0%, #f3e4d2 100%);
+  color: #2a1408;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 220, 180, 0.35);
+  animation: tour-pop 0.28s ease;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  /* Never show an inner scrollbar — content is sized to fit */
+  scrollbar-width: none;
+}
+
+.tour__tip::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.tour__tip--center {
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 220, 180, 0.4);
+}
+
+.tour__tip--mobile {
+  padding: 0.85rem 1rem 0.95rem;
+  border-radius: 18px;
+}
+
+.tour__tip--sheet {
+  border-radius: 18px;
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 220, 180, 0.4);
+}
+
+.tour__tip--sheet-top {
+  border-radius: 16px 16px 20px 20px;
+}
+
+.tour__tip--sheet-bottom {
+  border-radius: 20px 20px 16px 16px;
+}
+
+.tour__progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a06a38;
+}
+
+.tour__skip {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #8a5a32;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.35rem 0.4rem;
+  min-height: 2.2rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tour__title {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: #2a1408;
+}
+
+.tour__body {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(42, 20, 8, 0.84);
+}
+
+.tour__actions {
+  display: flex;
+  justify-content: stretch;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+.tour__btn {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  flex: 1;
+  min-height: 2.5rem;
+  padding: 0 0.9rem;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tour__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tour__btn--ghost {
+  background: rgba(42, 20, 8, 0.08);
+  color: #2a1408;
+}
+
+.tour__btn--primary {
+  color: #fff8f0;
+  background: linear-gradient(135deg, #d9772e, #b04a12);
+  box-shadow: 0 8px 18px rgba(176, 74, 18, 0.3);
+}
+
+.help-btn {
+  appearance: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 230, 200, 0.28);
+  background: rgba(255, 248, 240, 0.12);
+  color: #ffe8c8;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.12s ease;
+}
+
+.help-btn:hover {
+  background: rgba(255, 248, 240, 0.22);
+  border-color: rgba(255, 230, 200, 0.45);
+}
+
+.help-btn:active {
+  transform: scale(0.96);
+}
+
+.help-btn__mark {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+@keyframes tour-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tour-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tour-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(255, 214, 160, 0.95),
+      0 0 0 9999px rgba(12, 6, 2, 0.72),
+      0 0 22px 2px rgba(255, 180, 80, 0.28);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(255, 230, 180, 1),
+      0 0 0 9999px rgba(12, 6, 2, 0.72),
+      0 0 34px 6px rgba(255, 180, 80, 0.42);
+  }
+}
+
+@media (min-width: 901px) {
+  .tour__title {
+    font-size: 1.1rem;
+  }
+
+  .tour__body {
+    font-size: 0.92rem;
+  }
+
+  .tour__actions {
+    justify-content: flex-end;
+  }
+
+  .tour__btn {
+    flex: 0 0 auto;
+    min-height: 2.45rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .tour__spotlight {
+    border-radius: 12px;
+    max-width: calc(100vw - 8px);
+  }
+
+  .tour__tip--mobile .tour__title {
+    font-size: 1.08rem;
+  }
+
+  .tour__tip--mobile .tour__body {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+/* Disable spotlight size animation while stepping — reduces jumpiness */
+.tour .tour__spotlight {
+  transition:
+    top 0.18s ease,
+    left 0.18s ease,
+    width 0.18s ease,
+    height 0.18s ease;
+}

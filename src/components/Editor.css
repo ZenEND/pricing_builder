@@ -42,10 +42,6 @@
   color: #5c3a24;
 }
 
-.editor__reset {
-  width: 100%;
-}
-
 .editor__list {
   flex: 1;
   min-height: 0;
@@ -97,6 +93,98 @@
   grid-template-columns: 1fr auto;
   gap: 0.75rem;
   align-items: end;
+}
+
+.item-card__subs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.15rem;
+  padding: 0.65rem 0.55rem 0.55rem;
+  border-radius: 10px;
+  background: rgba(90, 45, 18, 0.05);
+  border: 1px solid rgba(90, 45, 18, 0.1);
+}
+
+.item-card__subs-label {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #8a5a32;
+}
+
+.sub-item {
+  display: grid;
+  grid-template-columns: 4px minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: stretch;
+}
+
+.sub-item__rail {
+  border-radius: 999px;
+  background: linear-gradient(180deg, #d9772e, #b04a12);
+  opacity: 0.75;
+}
+
+.sub-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.sub-item__top {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sub-item__mark {
+  color: #a85a28;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.sub-item__move {
+  display: flex;
+  gap: 0.2rem;
+  margin-right: auto;
+}
+
+.field__input--sm {
+  padding: 0.55rem 0.65rem;
+  font-size: 0.95rem;
+  min-height: 2.35rem;
+}
+
+.icon-btn--sm {
+  width: 1.9rem;
+  height: 1.9rem;
+  font-size: 0.9rem;
+}
+
+.add-sub {
+  appearance: none;
+  border: 1px dashed rgba(90, 45, 18, 0.28);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.45);
+  color: #7a4a2a;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  text-align: left;
+  min-height: 2.3rem;
+}
+
+.add-sub:hover,
+.add-sub:active {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(196, 107, 46, 0.45);
+  color: #5c3018;
 }
 
 .field {
@@ -170,6 +258,11 @@
   border: 1px solid rgba(90, 45, 18, 0.14);
 }
 
+.editor__reset {
+  margin-top: 0.65rem;
+  align-self: flex-start;
+}
+
 .icon-btn {
   appearance: none;
   width: 2.2rem;
@@ -237,6 +330,58 @@
 
 .add-step__text {
   white-space: nowrap;
+}
+
+.editor__danger {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed rgba(90, 45, 18, 0.18);
+}
+
+.editor__danger-summary {
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9a7a62;
+  list-style: none;
+  user-select: none;
+}
+
+.editor__danger-summary::-webkit-details-marker {
+  display: none;
+}
+
+.editor__danger-summary::before {
+  content: '› ';
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.editor__danger[open] .editor__danger-summary::before {
+  transform: rotate(90deg);
+}
+
+.editor__danger-btn {
+  appearance: none;
+  margin-top: 0.65rem;
+  width: 100%;
+  border: 1px solid rgba(154, 47, 26, 0.28);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  background: rgba(154, 47, 26, 0.06);
+  color: #8a2f1c;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 2.4rem;
+}
+
+.editor__danger-btn:hover,
+.editor__danger-btn:active {
+  background: rgba(154, 47, 26, 0.12);
 }
 
 @media (max-width: 900px) {

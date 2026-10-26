@@ -1,10 +1,12 @@
+import { useLayoutEffect, type RefObject } from 'react'
 import type { DesignTheme, PriceItem } from '../types'
+import { fitPriceSheet } from '../utils/fitPriceSheet'
 import './PriceListPreview.css'
 
 type Props = {
   items: PriceItem[]
   theme: DesignTheme
-  previewRef: React.RefObject<HTMLDivElement | null>
+  previewRef: RefObject<HTMLDivElement | null>
 }
 
 const PHOTO_THEMES: Record<DesignTheme, string> = {
@@ -93,9 +95,42 @@ function ThemeDecor({ theme }: { theme: DesignTheme }) {
 }
 
 export function PriceListPreview({ items, theme, previewRef }: Props) {
+  useLayoutEffect(() => {
+    const sheet = previewRef.current
+    if (!sheet) return
+
+    let raf = 0
+    const run = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        fitPriceSheet(sheet)
+      })
+    }
+
+    run()
+
+    const ro = new ResizeObserver(run)
+    ro.observe(sheet)
+
+    let cancelled = false
+    void document.fonts?.ready.then(() => {
+      if (!cancelled) run()
+    })
+
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(raf)
+      ro.disconnect()
+    }
+  }, [items, theme, previewRef])
+
   return (
     <div className="preview-frame">
-      <div className={`preview-sheet theme-${theme}`} ref={previewRef}>
+      <div
+        className={`preview-sheet theme-${theme}`}
+        data-tour="preview-sheet"
+        ref={previewRef}
+      >
         <ThemeDecor theme={theme} />
         <ul className="pl-list">
           {items.map((item) => (

@@ -1,3 +1,5 @@
+import { fitPriceSheet } from './fitPriceSheet'
+
 function pad(n: number): string {
   return String(n).padStart(2, '0')
 }
@@ -32,6 +34,9 @@ export async function exportPriceListPdf(
   if (document.fonts?.ready) {
     await document.fonts.ready
   }
+
+  // Re-fit typography after fonts settle so nothing clips in the PDF
+  fitPriceSheet(element)
 
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
     import('html2canvas'),

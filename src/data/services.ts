@@ -31,7 +31,7 @@ export const defaultItems: PriceItem[] = [
   },
   {
     id: '6',
-    title: 'кожна наступна довжина',
+    title: 'Кожна наступна довжина',
     price: '+50грн',
     indented: true,
   },
