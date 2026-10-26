@@ -206,9 +206,19 @@ export default function App() {
     setMobilePane('preview')
     setExporting(true)
     setError(null)
-    await new Promise((r) => requestAnimationFrame(() => r(null)))
+    // Wait for React to show the preview pane + layout/fonts before capture
+    await new Promise<void>((r) => {
+      requestAnimationFrame(() => requestAnimationFrame(() => r()))
+    })
+    await new Promise((r) => setTimeout(r, 80))
+    const sheet = previewRef.current
+    if (!sheet) {
+      setExporting(false)
+      setError('Превʼю ще не готове. Спробуйте ще раз.')
+      return
+    }
     try {
-      await exportPriceListPdf(previewRef.current, `${PDF_BASENAME}-${theme}`)
+      await exportPriceListPdf(sheet, `${PDF_BASENAME}-${theme}`)
     } catch (err) {
       console.error(err)
       setError('Не вдалося створити PDF. Спробуйте ще раз.')
